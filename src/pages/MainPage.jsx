@@ -1,5 +1,5 @@
-import Card from "./components/Card"
-import bg from "./bg.jpg"
+import Card from "../components/Card"
+import bg from "../bg.jpg"
 
 
 function MainPage({fruits}) {
@@ -19,9 +19,6 @@ function MainPage({fruits}) {
         </div>
       </div>
     </>
-
-
-
   )
 
 }
