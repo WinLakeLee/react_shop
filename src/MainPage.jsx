@@ -1,8 +1,10 @@
 import Card from "./components/Card"
+import bg from "./bg.jpg"
 
-function MainPage() {
+
+function MainPage({fruits}) {
+
   return (
-
     <>
       <div className="main-bg" style={{ backgroundImage: `url('${bg}')` }}></div>
       <div className="container">
