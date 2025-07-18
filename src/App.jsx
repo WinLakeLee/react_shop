@@ -1,15 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import data from "./mokData"
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import MainPage from './MainPage';
+import Header from './Header';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [fruits, setFruits] = useState(data);
   return (
-    <>
-
-    </>
+    <div>
+      <Header/>
+      <Routes>
+        <Route path='/' element={<h1>{<MainPage fruits={fruits}/>}</h1>}/>
+        <Route path='/test' element={<h1>테스트 페이지</h1>}></Route>
+      </Routes>
+    </div>
   )
 }
 
