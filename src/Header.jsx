@@ -7,7 +7,7 @@ function Header() {
   const navigate = useNavigate();
 
   return (
-    <>
+    <div className='Header'>
       <Navbar bg="light" data-bs-theme="light">
         <Container>
           <Navbar.Brand onClick={() => navigate('/')}>Home</Navbar.Brand>
@@ -19,7 +19,7 @@ function Header() {
           </Nav>
         </Container>
       </Navbar>
-    </>
+    </div>
   )
 }
 
