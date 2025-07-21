@@ -6,13 +6,13 @@ function MainPage({fruits}) {
 
   return (
     <>
-      <div className="main-bg" style={{ backgroundImage: `url('${bg}')` }}></div>
-      <div className="container">
+      <div className="MainPage main-bg b" style={{ backgroundImage: `url('${bg}')`, height:`300px` }}></div>
+      <div className="container b">
         <div className="row">
           {
             fruits.map((fruit, i) => {
               return (
-                <Card fruit={fruit} key={fruit.id} />
+                <Card fruit={fruit} key={i} />
               )
             })
           }
