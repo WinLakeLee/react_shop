@@ -1,4 +1,4 @@
-import { QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,31 +6,48 @@ import { Link, useNavigate } from "react-router-dom";
 function Header() {
   const navigate = useNavigate();
 
+  // const 변수이름 = useQuery(['쿼리이름'], () => {
+  //   // axios로 요청
+  //   // 쿼리에 저장할 데이터를 return
+  // })
+
+  // const 변수이름2 = useQuery({
+  //   queryKey: ['쿼리이름'],
+  //   queryFn: () => {
+  //     // axios로 요청
+  //     // 쿼리에 저장할 데이터를 return
+  //   }
+  // })
+
   const userInfoQuery = useQuery({
-    queryKey:['userInfo'],
+    queryKey: ['userInfo'],
     queryFn: async () => {
-      const userInfo = await axios.get('https://raw.githubusercontent.com/ghkdss/react_sample_data/main/useinfo.json')
-      return userInfo.data
-    }
+      const response = await axios.get('https://raw.githubusercontent.com/ghkdss/react_sample_data/main/useinfo.json')
+      console.log(response)
+
+      return response.data;
+    },
+    staleTime : 5000,
+    retry: 10
   })
 
   return (
-    <div>
-      <Navbar bg="dark" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand onClick={() => navigate('/')}>Home</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link onClick={() => navigate(-1)}>뒤로가기</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="/test">테스트</Nav.Link>
-            <Link to="/test">테스트2</Link>
-          </Nav>
-        </Container>
-      </Navbar>
-      <QueryClientProvider client={userInfoQuery}>
-        {userInfoQuery.data}
-      </QueryClientProvider>
-    </div>
+    <Navbar bg="dark" data-bs-theme="dark">
+      <Container>
+        <Navbar.Brand onClick={() => navigate('/')}>Home</Navbar.Brand>
+        <Nav className="me-auto">
+          <Nav.Link onClick={() => navigate(-1)}>뒤로가기</Nav.Link>
+          <Nav.Link onClick={() => navigate('/cart')}>장바구니</Nav.Link>
+          <Nav.Link href="/test">테스트</Nav.Link>
+          <Link to="/test">테스트2</Link>
+        </Nav>
+        <Nav style={{color: 'white'}}>
+          { userInfoQuery.isLoading && '회원정보 불러오는중...' }
+          { userInfoQuery.error && '회원정보 불러오기 실패!!' }
+          { userInfoQuery.data && userInfoQuery.data[0].name }
+        </Nav>
+      </Container>
+    </Navbar>
   )
 }
 

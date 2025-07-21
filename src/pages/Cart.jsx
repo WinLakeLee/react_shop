@@ -1,6 +1,15 @@
-import { Table } from "react-bootstrap"
+import { Table } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
-function Cart({}) {
+function Cart() {
+  const test = useSelector((state) => {
+    return state.test
+  })
+  const item = useSelector(state => state.item)
+
+  console.log(test);
+  console.log(item);
+
   return (
     <Table>
       <thead>
@@ -22,4 +31,5 @@ function Cart({}) {
     </Table>
   )
 }
+
 export default Cart

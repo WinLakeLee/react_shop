@@ -1,4 +1,5 @@
 import Card from "../components/Card"
+import bg from "../bg.jpg"
 import { useState } from "react";
 
 function MainPage({ fruit }) {
