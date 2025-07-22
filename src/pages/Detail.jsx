@@ -18,11 +18,11 @@ function Detail({ fruit }) {
   // useEffect는 html이 전부 다 렌더링이 완료된 후 실행이 된다.
   useEffect(() => {
     // 여기에 작성된 모든 코드들은 마운트, 업데이트될 때 실행
-    
+
     let timer = setTimeout(() => {
-        console.log('setTimeout 종료')
-        setAlert(false);
-      }, 5000)
+      console.log('setTimeout 종료')
+      setAlert(false);
+    }, 5000)
 
 
     return () => {
@@ -41,9 +41,23 @@ function Detail({ fruit }) {
   // useEffect(() => {
   //   console.log('useEffect 확인용 콘솔')
   // }, [num])
-  
-  
-  if( !selectedFruit ) {
+
+  useEffect(() => {
+    // 방금 들어온 상품의 id를 로컬스토리지에 추가
+    let watched = localStorage.getItem('watched')
+    watched = JSON.parse(watched)
+    if(watched.length === 3 && !watched.includes(id))
+    watched.pop();
+    watched = [id, ...watched]
+    // Set으로 변환하면 중복이 제거 됨
+    watched = new Set(watched)
+    // Array와 Set은 변환가능
+    watched = Array.from(watched)
+    localStorage.setItem('watched', JSON.stringify(watched))
+  }, [])
+
+
+  if (!selectedFruit) {
     return <div>해당 상품이 없습니다.</div>
   }
 
@@ -59,10 +73,10 @@ function Detail({ fruit }) {
 
       {
         alert ?
-        <div className="alert alert-danger">
-          5초 안에 구매하면 공짜
-        </div>
-        : ''
+          <div className="alert alert-danger">
+            5초 안에 구매하면 공짜
+          </div>
+          : ''
       }
 
       <div className="row">
@@ -80,7 +94,7 @@ function Detail({ fruit }) {
               count: 1
             }
 
-            dispatch( addItem(item) )
+            dispatch(addItem(item))
             window.alert('장바구니에 추가되었습니다.')
           }}>주문하기</button>
         </div>

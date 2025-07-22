@@ -9,6 +9,7 @@ import About from './pages/About'
 import styled from 'styled-components'
 import axios from 'axios'
 import Cart from './pages/Cart'
+import WatchedProduct from './components/WatchedProduct'
 
 // styled-component 기본 사용법
 // const 컴포넌트이름지정 = styled.태그명`
@@ -36,7 +37,7 @@ const Div = styled.div`
 
 function App() {
   const [fruit, setFruit] = useState([]);
-  
+
   useEffect(() => {
     axios.get('https://raw.githubusercontent.com/ghkdss/react_sample_data/main/fruit.json')
       .then(response => {
@@ -48,10 +49,14 @@ function App() {
       })
   }, [])
 
+  useEffect(() => {
+    localStorage.setItem('watched', JSON.stringify([]))
+  }, [])
+
   return (
     <div className={style.container}>
       <Header />
-
+      <WatchedProduct fruit={fruit}/>
       <Routes>
         <Route path='/' element={<MainPage fruit={fruit} />} />
         <Route path='/detail/:id' element={<Detail fruit={fruit} />} />
@@ -72,11 +77,13 @@ function App() {
           .then(response => {
             console.log(response.data)
             setFruit([...fruit, ...response.data])
+            if(response.data.length == fruit.length) {
+              
+            }
           })
           .catch(error => {
             console.log(error)
           })
-
 
       }}>더보기</button>
 
