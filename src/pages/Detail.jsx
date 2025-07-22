@@ -15,11 +15,11 @@ function Detail({ fruit }) {
   // useEffect는 html이 전부 다 렌더링이 완료된 후 실행이 된다.
   useEffect(() => {
     // 여기에 작성된 모든 코드들은 마운트, 업데이트될 때 실행
-    
+
     let timer = setTimeout(() => {
-        console.log('setTimeout 종료')
-        setAlert(false);
-      }, 5000)
+      console.log('setTimeout 종료')
+      setAlert(false);
+    }, 5000)
 
 
     return () => {
@@ -33,14 +33,14 @@ function Detail({ fruit }) {
 
   // 의존성 배열이 없으면 마운트, 업데이트마다 실행이 됨
   // 의존성 배열이 빈배열이면 마운트 시 한번만 실행이 됨
-  // 의존성 배열에 특정 state, props가 있으면 
+  // 의존성 배열에 특정 state, props가 있으면
   // 마운트될때와 해당 state,props가 업데이트될때 실행이 됨
   // useEffect(() => {
   //   console.log('useEffect 확인용 콘솔')
   // }, [num])
-  
-  
-  if( !selectedFruit ) {
+
+
+  if (!selectedFruit) {
     return <div>해당 상품이 없습니다.</div>
   }
 
@@ -56,10 +56,10 @@ function Detail({ fruit }) {
 
       {
         alert ?
-        <div className="alert alert-danger">
-          5초 안에 구매하면 공짜
-        </div>
-        : ''
+          <div className="alert alert-danger">
+            5초 안에 구매하면 공짜
+          </div>
+          : ''
       }
 
       <div className="row">

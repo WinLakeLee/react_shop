@@ -77,7 +77,6 @@ function App() {
             console.log(error)
           })
 
-
       }}>더보기</button>
 
       <button onClick={() => {
@@ -88,9 +87,7 @@ function App() {
           .catch((error) => {
             console.log(error)
           })
-
       }}>과일정보 받아오기</button>
-
 
     </div>
   )

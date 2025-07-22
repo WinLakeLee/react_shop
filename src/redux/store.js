@@ -1,20 +1,9 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import cart from "./cartSlice";
 
-const test = createSlice({
-  name: 'test',
-  initialState: 'hello'
-})
-
-const item = createSlice({
-  name: 'item',
-  initialState: ['apple', 'banana']
-})
-
-
+export const {addCount, decCount} = cart.actions
 export default configureStore({
   reducer: {
-    test: test.reducer,
-    item: item.reducer
+    cart: cart.reducer,
   }
-
 })

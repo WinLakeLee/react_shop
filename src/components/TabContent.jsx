@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './TabContent.css'
+import { flushSync } from 'react-dom';
 
 function TabContent({ tabNumber }) {
   const [fade, setFade] = useState('');
@@ -15,7 +16,9 @@ function TabContent({ tabNumber }) {
 
     return () => {
       clearTimeout(timer)
-      setFade('');
+      // flushSync(()=> {
+        setFade('');
+      // })
     }
 
   }, [tabNumber])

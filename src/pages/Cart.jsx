@@ -1,34 +1,42 @@
 import { Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addCount, decCount } from "../redux/store";
 
 function Cart() {
-  const test = useSelector((state) => {
-    return state.test
-  })
-  const item = useSelector(state => state.item)
-
-  console.log(test);
-  console.log(item);
+  const cart = useSelector(state => state.cart)
+  const dispatch = useDispatch()
+  console.log(cart)
 
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>상품명</th>
-          <th>수량</th>
-          <th>수정</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>apple</td>
-          <td>10</td>
-          <td>수정하기</td>
-        </tr>
-      </tbody>
-    </Table>
+    <>
+      <Table>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>상품명</th>
+            <th>수량</th>
+            <th>수정</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            cart.map((data, i) => {
+              return (
+                <tr key={i}>
+                  <td>{data.id}</td>
+                  <td>{data.title}</td>
+                  <td>{data.count}</td>
+                  <td>
+                    <button onClick={() => { dispatch(addCount(i))}}>+</button>
+                    <button onClick={() => { dispatch(decCount(i))}}>-</button>
+                  </td>
+                </tr>
+              )
+            })
+          }
+        </tbody>
+      </Table>
+    </>
   )
 }
 
