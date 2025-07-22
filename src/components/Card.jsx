@@ -16,4 +16,5 @@ function Card({ fruit}) {
     </>
   )
 }
+
 export default Card
