@@ -1,94 +1,72 @@
+import data from './mokData.js'
 import style from './App.module.css'
-import data from './mokData'
-import { useEffect, useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import MainPage from './pages/MainPage'
-import Header from './components/Header'
-import Detail from './pages/Detail'
-import About from './pages/About'
-import styled from 'styled-components'
-import axios from 'axios'
-import Cart from './pages/Cart'
-
-// styled-component 기본 사용법
-// const 컴포넌트이름지정 = styled.태그명`
-//   css속성
-// `
-
-const Btn = styled.button`
-  background: ${props => props.bg};
-  color: ${props => props.bg === 'blue' ? 'white' : 'black'};
-  font-size: 30px;
-  border: 1px solid red;
-`
-
-const Btn2 = styled(Btn)`
-  width: 200px;
-  height: 200px;
-`
-
-
-const Div = styled.div`
-  padding: 20px;
-  background: skyblue;
-`
-
+import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import MainPage from './pages/MainPage';
+import Header from './Header';
+import Detail from './pages/Detail';
+import About from './pages/About';
+import styled from 'styled-components';
+import axios from 'axios';
 
 function App() {
-  const [fruit, setFruit] = useState([]);
-  
+  // const Btn = styled.button`
+  //   background: ${props => props.bg};
+  //   color: ${props => props.bg === 'blue' ? 'white' : 'black'};
+  //   font-size: 30px;
+  //   border: 1px solid red;
+  // `
+  // const Div = styled.div`
+  //   padding:20px;
+  //   background: skyblue;
+  // `
+  // const Btn2 = styled(Btn)`
+  //   width:200px;
+  //   height:200px;
+  // `
+
+  const [fruits, setFruits] = useState([]);
   useEffect(() => {
-    axios.get('https://raw.githubusercontent.com/ghkdss/react_sample_data/main/fruit.json')
-      .then(response => {
-        // console.log(response.data);
-        setFruit([...response.data]);
+    axios.get(`https://raw.githubusercontent.com/ghkdss/react_sample_data/main/fruit.json`)
+      .then((res) => {
+        setFruits([...res.data])
       })
-      .catch(error => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       })
-  }, [])
+  },);
+  
 
   return (
     <div className={style.container}>
+      {/* <Div>
+        <Btn bg='pink'>버튼</Btn>
+        <Btn bg='blue'>버튼</Btn>
+        <Btn2 bg='yellowgreen'>버튼</Btn2>
+      </Div> */}
       <Header />
-
       <Routes>
-        <Route path='/' element={<MainPage fruit={fruit} />} />
-        <Route path='/detail/:id' element={<Detail fruit={fruit} />} />
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/test' element={<h1>테스트페이지</h1>} />
-
-        <Route path='/about' element={<About />} >
-          <Route path='intro' element={<div>회사소개</div>} />
+        <Route path='/' element={<h1>{<MainPage fruits={fruits} />}</h1>} />
+        <Route path='/detail/:id' element={<Detail fruit={fruits} />} />
+        <Route path='/test' element={<h1>테스트 페이지</h1>} />
+        <Route path='/about' element={<About />}>
+          <Route path='intro' element={<div>회사 소개</div>} />
           <Route path='history' element={<div>연혁</div>} />
-          <Route path='loc' element={<div>오시는 길</div>} />
+          <Route path='location' element={<div>오시는 길</div>} />
         </Route>
-
         <Route path='*' element={<h1>존재하지 않는 페이지</h1>} />
       </Routes>
 
       <button onClick={() => {
-        axios.get('https://raw.githubusercontent.com/ghkdss/react_sample_data/main/morefruit.json')
-          .then(response => {
-            console.log(response.data)
-            setFruit([...fruit, ...response.data])
-          })
-          .catch(error => {
-            console.log(error)
-          })
-
-      }}>더보기</button>
-
-      <button onClick={() => {
-        axios.get('https://raw.githubusercontent.com/ghkdss/react_sample_data/main/fruit.json')
+        axios.get(`https://raw.githubusercontent.com/ghkdss/react_sample_data/main/morefruit.json`)
           .then((response) => {
-            console.log(response.data)
+            setFruits([...fruits, ...response.data])
           })
-          .catch((error) => {
-            console.log(error)
+          .catch((e) => {
+            console.log(e);
           })
-      }}>과일정보 받아오기</button>
-
+      }}>더보기</button>
+      <button>과일정보 받아오기</button>
     </div>
   )
 }
