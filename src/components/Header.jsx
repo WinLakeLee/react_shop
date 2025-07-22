@@ -38,8 +38,8 @@ function Header() {
         <Nav className="me-auto">
           <Nav.Link onClick={() => navigate(-1)}>뒤로가기</Nav.Link>
           <Nav.Link onClick={() => navigate('/cart')}>장바구니</Nav.Link>
-          <Nav.Link onClick={() => navigate('/test')}>테스트</Nav.Link>
-          {/* <Link to="/test">테스트2</Link> */}
+          <Nav.Link href="/test">테스트</Nav.Link>
+          <Link to="/test">테스트2</Link>
         </Nav>
         <Nav style={{color: 'white'}}>
           { userInfoQuery.isLoading && '회원정보 불러오는중...' }

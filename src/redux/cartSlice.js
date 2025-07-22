@@ -1,34 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { incCount } from "./store";
+import { createSlice } from "@reduxjs/toolkit";
 
 const cart = createSlice({
   name: 'cart',
   initialState: [
-    { id: 0, title: 'apple', count: 3 },
-    { id: 2, title: 'watermelon', count: 10 }
+    {id:0, title: 'apple', count: 3},
+    {id:2, title: 'watermelon', count: 10},
   ],
   reducers: {
-    incCount: (state, action) => {
+    addCount(state, action) {
       state[action.payload].count++;
     },
-    decCount: (state, action) => {
-      state[action.payload].count--;
-    },
-    addItem: (state, action) => {
-      // state에서 data.id 일치하는지 찾은 후 index를 반환
+    addItem(state, action) {
+      
+      // findIndex함수 : 조건식에 만족하는 인덱스를 리턴, 없으면 -1 리턴
       let index = state.findIndex(data => {
         return data.id == action.payload.id
       })
-      if (index !== -1) {
-        state[index].count++
+
+      if( index !== -1) {
+        state[index].count++;
       } else {
-        state.push(action.payload)
+        state.push(action.payload);
       }
+
     },
-    removeItem: (state, action) => {
-      state.splice(action.payload, 1)
+
+    removeItem(state, action) {
+      state.splice(action.payload, 1);
     }
+
   }
 })
 
+export const { addCount, addItem, removeItem } = cart.actions;
 export default cart;
