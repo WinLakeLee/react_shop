@@ -28,10 +28,10 @@ function Cart() {
                   <td>{data.title}</td>
                   <td>{data.count}</td>
                   <td>
-                    <button onClick={() => { dispatch(incCount(i))}}>+</button>
-                    <button onClick={() => { dispatch(decCount(i))}}>-</button>
+                    <button onClick={() => { dispatch(incCount(i)) }}>+</button>
+                    <button onClick={() => { dispatch(decCount(i)) }}>-</button>
                   </td>
-                  <td><button onClick={() => { dispatch(removeItem(i))}}>X</button></td>
+                  <td><button onClick={() => { dispatch(removeItem(i)) }}>X</button></td>
                 </tr>
               )
             })

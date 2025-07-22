@@ -16,25 +16,17 @@ const cart = createSlice({
     },
     addItem: (state, action) => {
       // state에서 data.id 일치하는지 찾은 후 index를 반환
-      let index =  state.findIndex(data => {
+      let index = state.findIndex(data => {
         return data.id == action.payload.id
       })
-      if(index !== -1) {
+      if (index !== -1) {
         state[index].count++
       } else {
         state.push(action.payload)
       }
     },
     removeItem: (state, action) => {
-      let index =  state.findIndex(data => {
-        return data.id == action.payload.id
-      })
-      if(index !== -1) {
-        console.log('없는 상품');
-      } else {
-        console.log(index);
-        state.splice(index, 1)
-      }
+      state.splice(action.payload, 1)
     }
   }
 })
